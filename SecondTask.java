@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 public class SecondTask {
@@ -17,7 +18,10 @@ public class SecondTask {
 	}
 	
 	private static int findSoldierPosition(int n) {
-		//See if n is power of 2 (binary system) because all power of 2 numbers the winner will always be first person
+		if(n<=0) {
+			return -1;
+		}
+		//See if n is power of 2 because all power of 2 numbers the winner will always be first person
 		if((n!=0) && ((n & (n-1))) == 0){
 			 return 1;
 		 }
@@ -37,12 +41,12 @@ public class SecondTask {
 		//Get the remainder of number of soldiers minus highest possible power of 2 number
 		int remainder = n-highestPwrOf2Number;
 		int indexLastSoldier = 0;
-		//Iterate from 0 to the remainder, 
+		//Iterate from 0 to the remainder
 		for(int i=0;i<remainder;i++) {
-			soldiers.remove(i+1);
-			indexLastSoldier = i+1;
+			soldiers.remove(i+1); //Kill the soldier next to me 
+			indexLastSoldier = i+1; //Save the index
 		}
-		return soldiers.get(indexLastSoldier);
+		return soldiers.get(indexLastSoldier); //Return the soldier at the index saved
 		
 	}
 	
@@ -50,7 +54,12 @@ public class SecondTask {
 	public static void main(String[] args) {
 		String inputString = new String("happy new year 2022");
 		findVowels(inputString,3);
-		int numberOfSoldiers = 6;
-		System.out.println("With "+ numberOfSoldiers + " soldiers, you need to sit at index "+findSoldierPosition(numberOfSoldiers)+ " to live");
+		int numberOfSoldiers = 9;
+		int result = findSoldierPosition(numberOfSoldiers);
+		if(result==-1){
+			System.out.println("Please enter a positive number greather than 0");
+			return;
+		}
+		System.out.println("With "+ numberOfSoldiers + " soldiers, you need to sit at index "+result+ " to live");
 	}
 }
